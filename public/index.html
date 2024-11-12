@@ -1,0 +1,39 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web NFC Reader</title>
+</head>
+<body>
+    <h1>Scan NFC Tag</h1>
+    <button id="startScan">Start NFC Scan</button>
+    <div id="nfcData"></div>
+
+    <script src="nfc-reader.js"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web NFC Reader</title>
+</head>
+<body>
+    <h1>Scan NFC Tag</h1>
+    <div id="nfcData">Waiting for NFC data...</div>
+
+    <script>
+        // Function to fetch and display NFC data from the server
+        async function fetchNfcData() {
+            const response = await fetch('http://localhost:3000/nfc-data');
+            const data = await response.json();
+            document.getElementById('nfcData').textContent = data.data || 'No data received yet';
+        }
+
+        // Poll the server every 2 seconds to check for new NFC data
+        setInterval(fetchNfcData, 2000);
+    </script>
+</body>
+</html>
