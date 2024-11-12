@@ -35,7 +35,9 @@ if ('NDEFReader' in window) {
         } catch (error) {
             console.error('Error starting NFC scan:', error);
         }
+        nfcDataDiv.innerHTML =`<h1>${result}</h1>`
     });
+
     // Function to send NFC data to the laptop's server
     async function sendNfcDataToLaptop(data) {
         const response = await fetch('http://localhost:3000/receive-nfc-data', {
