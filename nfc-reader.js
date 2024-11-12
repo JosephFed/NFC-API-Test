@@ -11,7 +11,7 @@ if ('NDEFReader' in window) {
 
             ndef.onreading = async (event) => {
                 const message = event.message;
-                let nfcData = 'placeholder';
+                let nfcData = "placeholder";
 
                 // Decode the NFC message and extract the data
                 for (const record of message.records) {
