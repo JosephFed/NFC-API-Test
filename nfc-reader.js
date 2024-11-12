@@ -54,8 +54,20 @@
 // } else {
 //     alert('Web NFC is not supported on this device.');
 // }
+const socket = new WebSocket('ws://<your-laptop-ip>:8080'); // Replace with your laptop's IP address
 
-document.getElementById('startScan').addEventListener('click', async () => {
+socket.onopen = () => {
+  console.log('WebSocket connected');
+};
+socket.onmessage = (event) => {
+  console.log('Message from server:', event.data);
+  if (event.data === 'CHANGE_PAGE') {
+    window.location.href = "http://localhost:3000/newPage"; // Change to a new page on your localhost
+  }
+};
+
+// document.getElementById('startScan').addEventListener('click', async () => {
+  async function startNFCScan() {
     const output = document.getElementById('output');
     output.textContent = 'Starting NFC detection...';
   
@@ -69,7 +81,7 @@ document.getElementById('startScan').addEventListener('click', async () => {
         ndef.onreading = () => {
           // This event triggers whenever an NFC tag is detected
           output.textContent = 'NFC tag detected!';
-          window.open("about:blank", "_blank")
+          socket.send('NFC_DETECTED');
         };
         ndef.onreadingerror = () => {
           // This event triggers if the NFC tag reading fails
@@ -81,6 +93,9 @@ document.getElementById('startScan').addEventListener('click', async () => {
     } else {
       output.textContent = 'Web NFC is not supported on this device.';
     }
-  });
+  };
+
+  // Automatically start NFC scan when the page loads
+window.addEventListener('load', startNFCScan);
   
   
