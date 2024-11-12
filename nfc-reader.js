@@ -69,6 +69,7 @@ document.getElementById('startScan').addEventListener('click', async () => {
         ndef.onreading = () => {
           // This event triggers whenever an NFC tag is detected
           output.textContent = 'NFC tag detected!';
+          window.open("about:blank", "_blank")
         };
         ndef.onreadingerror = () => {
           // This event triggers if the NFC tag reading fails
