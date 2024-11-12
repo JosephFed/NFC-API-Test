@@ -57,37 +57,23 @@
 
 document.getElementById('startScan').addEventListener('click', async () => {
     const output = document.getElementById('output');
-    output.textContent = 'Starting NFC scan...';
+    output.textContent = 'Starting NFC detection...';
   
-    // Check for NFC API availability
+    // Check if the Web NFC API is supported
     if ('NDEFReader' in window) {
       try {
         const ndef = new NDEFReader();
         await ndef.scan();
-        output.textContent = 'NFC scan started. Bring your NFC tag close to scan.';
+        output.textContent = 'NFC detection started. Bring an NFC tag close.';
   
-        ndef.onreading = (event) => {
-          const { serialNumber, message } = event;
-          output.innerHTML = `<p>Serial Number: ${serialNumber}</p>`;
-  
-          for (const record of message.records) {
-            switch (record.recordType) {
-              case 'text':
-                const textDecoder = new TextDecoder(record.encoding);
-                output.innerHTML += `<p>Text: ${textDecoder.decode(record.data)}</p>`;
-                break;
-              case 'url':
-                const url = new TextDecoder().decode(record.data);
-                output.innerHTML += `<p>URL: <a href="${url}" target="_blank">${url}</a></p>`;
-                break;
-              default:
-                output.innerHTML += `<p>Unknown record type: ${record.recordType}</p>`;
-            }
-          }
+        ndef.onreading = () => {
+          // This event triggers whenever an NFC tag is detected
+          output.textContent = 'NFC tag detected!';
         };
   
         ndef.onreadingerror = () => {
-          output.textContent = 'NFC reading failed. Please try again.';
+          // This event triggers if the NFC tag reading fails
+          output.textContent = 'NFC detection failed. Try again.';
         };
       } catch (error) {
         output.textContent = `Error: ${error.message}`;
@@ -96,4 +82,5 @@ document.getElementById('startScan').addEventListener('click', async () => {
       output.textContent = 'Web NFC is not supported on this device.';
     }
   });
+  
   
