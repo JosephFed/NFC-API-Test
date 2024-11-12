@@ -1,14 +1,24 @@
+const fs = require('fs');
+const https = require('https');
 const WebSocket = require('ws');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
-const wss = new WebSocket.Server({ port: 8080 });
+// const wss = new WebSocket.Server({ port: 8080 });
 const port = 3000;
 
 // Middleware to parse incoming JSON
 app.use(bodyParser.json());
 app.use(cors());
+// Load SSL certificate
+const server = https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app);
+
+const wss = new WebSocket.Server({ server }); // Attach WebSocket to HTTPS server
+
 
 // Route to receive NFC data
 app.post('/receive-nfc-data', (req, res) => {

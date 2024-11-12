@@ -54,7 +54,7 @@
 // } else {
 //     alert('Web NFC is not supported on this device.');
 // }
-const socket = new WebSocket('ws://192.168.80.1:8080'); // Replace with your laptop's IP address
+const socket = new WebSocket('wss://192.168.80.1:8080'); // Replace with your laptop's IP address
 
 socket.onopen = () => {
   console.log('WebSocket connected');
