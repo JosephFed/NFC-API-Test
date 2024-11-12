@@ -38,7 +38,7 @@ if ('NDEFReader' in window) {
 
     // Function to send NFC data to the laptop's server
     async function sendNfcDataToLaptop(data) {
-        const response = await fetch('http://localhost:3000/receive-nfc-data', {
+        const response = await fetch('http://192.168.80.1:3000/receive-nfc-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
