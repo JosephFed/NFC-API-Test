@@ -33,9 +33,9 @@ if ('NDEFReader' in window) {
                 console.error('NFC read error:', error);
             };
         } catch (error) {
+            nfcDataDiv.textContent = `Error2`
             console.error('Error starting NFC scan:', error);
         }
-        nfcDataDiv.innerHTML =`<h1>${result}</h1>`
     });
 
     // Function to send NFC data to the laptop's server
