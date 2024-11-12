@@ -32,7 +32,7 @@ const path = require('path');
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'docs')));
 
 // Variable to store NFC data
 let nfcData = '';
@@ -50,7 +50,7 @@ app.get('/nfc-data', (req, res) => {
 });
 
 // Serve static files (HTML, CSS, JS)
-app.use(express.static('public'));
+app.use(express.static('docs'));
 
 // Start the server
 app.listen(port, () => {
