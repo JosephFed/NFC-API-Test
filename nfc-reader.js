@@ -66,8 +66,8 @@ socket.onmessage = (event) => {
   }
 };
 
-// document.getElementById('startScan').addEventListener('click', async () => {
-  async function startNFCScan() {
+document.getElementById('startScan').addEventListener('click', async () => {
+  //async function startNFCScan() {
     const output = document.getElementById('output');
     output.textContent = 'Starting NFC detection...';
   
@@ -93,9 +93,9 @@ socket.onmessage = (event) => {
     } else {
       output.textContent = 'Web NFC is not supported on this device.';
     }
-  };
+  });
 
   // Automatically start NFC scan when the page loads
-window.addEventListener('load', startNFCScan);
+//window.addEventListener('load', startNFCScan);
   
   
