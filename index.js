@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
 const port = 3000;
 
 // Middleware to parse incoming JSON
 app.use(bodyParser.json());
+app.use(cors());
 
 // Route to receive NFC data
 app.post('/receive-nfc-data', (req, res) => {
