@@ -1,4 +1,3 @@
-let result = false;
 if ('NDEFReader' in window) {
     const startScanButton = document.getElementById('startScan');
     const nfcDataDiv = document.getElementById('nfcData');
@@ -27,21 +26,16 @@ if ('NDEFReader' in window) {
 
                 // Send the data to the laptop via HTTP POST request
                 await sendNfcDataToLaptop(nfcData);
-
-                result = true;
             };
 
             ndef.onerror = (error) => {
+                nfcDataDiv.textContent = `Error`
                 console.error('NFC read error:', error);
-                result = false;
             };
         } catch (error) {
             console.error('Error starting NFC scan:', error);
-            result = false;
         }
-        nfcDataDiv.innerHTML =`<h1>${result}</h1>`
     });
-
     // Function to send NFC data to the laptop's server
     async function sendNfcDataToLaptop(data) {
         const response = await fetch('http://localhost:3000/receive-nfc-data', {
@@ -58,5 +52,3 @@ if ('NDEFReader' in window) {
 } else {
     alert('Web NFC is not supported on this device.');
 }
-
-const nfcDataDiv = document.getElementById('nfcData');
