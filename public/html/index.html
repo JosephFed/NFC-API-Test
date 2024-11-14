@@ -1,23 +1,6 @@
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web NFC Reader</title>
-</head>
-<body>
-    <h1>Scan NFC Tag</h1>
-    <button id="startScan">Start NFC Scan</button>
-    <div id="nfcData">
-        <h1>hey</h1>
-    </div>
-
-    <script src="nfc-reader.js"></script>
-</body>
-</html>-->
-<!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NFC Detector</title>
@@ -29,5 +12,51 @@
 
   <script src="../js/nfc-reader.js"></script>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert card</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <img src="../images/OCBC_logo.png" alt="logo">
+    
+    <!-- Make the text clickable -->
+    <a href="/pin" style="text-decoration: none; color: inherit;">
+        <p>Insert bank card to start</p>
+    </a>
+
+    <!-- Button Container -->
+    <div class="button-container">
+        <button class="login-button" id="fingerprint" onclick="navigateToPage('fingerprint')">Continue with Fingerprint</button>
+        <button class="login-button" id="facial" onclick="navigateToPage('facial')">Continue with Facial Recognition</button>
+        <button class="login-button" id="startScan">Continue with NFC Login</button>
+    </div>
+
+    <!-- NFC Output -->
+    <br><br>
+    <div id="output" style="text-align: center;"></div>
+
+    <!-- JavaScript for page navigation -->
+    <script>
+        function navigateToPage(type) {
+            if (type === 'fingerprint') {
+                window.location.href = '/print';  // Replace with the correct URL for fingerprint login page
+            } else if (type === 'facial') {
+                window.location.href = '/face';  // Replace with the correct URL for facial recognition login page
+            }
+        }
+    </script>
+    <script src="../js/nfcReader.js"></script>
+</body>
 </html>
+
+
+
+
+
  

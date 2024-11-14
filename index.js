@@ -1,25 +1,23 @@
-const fs = require('fs');
-const https = require('https');
-const WebSocket = require('ws');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const path = require('path'); 
 const cors = require('cors');
-// const wss = new WebSocket.Server({ port: 8080 });
 const port = 3000;
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to parse incoming JSON
 app.use(bodyParser.json());
-app.use(cors());
-// Load SSL certificate
-const server = https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app);
+app.use(cors({
+  origin: 'https://josephfed.github.io/NFC-API-Test/', // Replace with the exact URL of the HTTPS server (last:*)
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type'
+})) 
 
-const wss = new WebSocket.Server({ server }); // Attach WebSocket to HTTPS server
-
-
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname,'public', 'html', 'index.html'));
+});
 // Route to receive NFC data
 app.post('/receive-nfc-data', (req, res) => {
     const nfcData = req.body.data; // The NFC data sent from the phone
@@ -29,19 +27,7 @@ app.post('/receive-nfc-data', (req, res) => {
     res.json({ status: 'success', message: 'NFC data received' });
 });
 
-app.listen(port, () => {
+const ip = '0.0.0.0';
+app.listen(port, ip,() => {
     console.log(`Server running at http://localhost:${port}`);
-});
-
-wss.on('connection', (ws) => {
-    console.log('Phone A connected via WebSocket');
-  
-    ws.on('message', (message) => {
-      console.log(`Received message from Phone A: ${message}`);
-      // Trigger action on receiving message (e.g., change page)
-      if (message === 'NFC_DETECTED') {
-        // Broadcast to all clients connected to the server
-        ws.send('CHANGE_PAGE');
-      }
-    });
 });
