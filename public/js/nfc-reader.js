@@ -80,7 +80,7 @@ document.getElementById('startScan').addEventListener('click', async () => {
         // .then(response => response.json())
         // .then(data => console.log(data))
         // .catch(error => console.error('Error:', error));
-        window.location.href = "public/home/home.html"
+        window.location.href = "public/html/home.html"
       };
       ndef.onreadingerror = () => {
         // This event triggers if the NFC tag reading fails
